@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.domain.BoardVO;
+import com.board.domain.Criteria;
 import com.board.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,12 +23,27 @@ public class BoardController {
 
 	private final BoardService service;
 	
+//	@GetMapping("/list")
+//	public void list(Model model) {
+//		
+//		log.info("list..............");
+//		
+//		model.addAttribute("list",service.getList());
+//	}
+	
 	@GetMapping("/list")
-	public void list(Model model) {
+	public void list(Criteria cri, Model model) {
 		
+		log.info("-----------------------");
+		log.info(cri);
 		log.info("list..............");
 		
-		model.addAttribute("list",service.getList());
+		model.addAttribute("list",service.getList(cri));
+	}
+	
+	@GetMapping("/register")
+	public void registerGET() {
+		
 	}
 	
 	@PostMapping("/register")
@@ -44,13 +60,14 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	@GetMapping("/get")
+	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("bno") Long bno, Model model) {
 		
 		log.info("/get");
 		model.addAttribute("board", service.get(bno));
 				
 	}
+	
 	
 	@PostMapping("/modify")
 	public String modify(BoardVO board, RedirectAttributes rttr) {
