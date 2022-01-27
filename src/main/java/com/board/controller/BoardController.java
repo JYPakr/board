@@ -10,6 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.domain.BoardVO;
 import com.board.domain.Criteria;
+import com.board.domain.PageDTO;
 import com.board.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,7 @@ public class BoardController {
 		log.info("list..............");
 		
 		model.addAttribute("list",service.getList(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, 123));
 	}
 	
 	@GetMapping("/register")
