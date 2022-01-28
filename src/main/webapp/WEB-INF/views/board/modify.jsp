@@ -19,29 +19,31 @@
                             Board Modify/Delete
                         </div>
                         <!-- /.panel-heading -->
+                        <div class="panel-body">
                         <form>
-                      	<div class="panel-body">
-                        	 	 <div class="form-group">
-                                     <label>BNO</label>
-                                     <input class="form-control" name="bno" readonly="readonly" value= '<c:out value="${board.bno}"/>'>
-                                 </div>
-                       	 		 <div class="form-group">
-                                     <label>Title</label>
-                                     <input class="form-control" name="title" value= '<c:out value="${board.title}"/>'>
-                                 </div>
-                                 
-                                 <div class="form-group">
-                                     <label>Content</label>
-                                     <textarea rows="10" cols="50"  name="content" style="resize: none" class="form-control"><c:out value="${board.content}"/></textarea>
-                                 </div>
-                                 
-                                 <div class="form-group">
-                                     <label>Writer</label>
-                                     <input class="form-control" name="writer" value= '<c:out value="${board.title}"/>'>
-                                 </div>
-                      		     <button class="btn btn-default" data-oper='modify'>Modify </button>
-                                 <button class="btn btn-danger" data-oper='remove'>Remove</button>
-                                 <button class="btn btn-info" data-oper='list'>List</button>
+                       		 <input type='hidden' name='pageNum' value='${cri.pageNum }'>
+                       		 <input type='hidden' name='amount' value='${cri.amount }'>
+                    	 	 <div class="form-group">
+                                 <label>BNO</label>
+                                 <input class="form-control" name="bno" readonly="readonly" value= '<c:out value="${board.bno}"/>'>
+                             </div>
+                   	 		 <div class="form-group">
+                                 <label>Title</label>
+                                 <input class="form-control" name="title" value= '<c:out value="${board.title}"/>'>
+                             </div>
+                             
+                             <div class="form-group">
+                                 <label>Content</label>
+                                 <textarea rows="10" cols="50"  name="content" style="resize: none" class="form-control"><c:out value="${board.content}"/></textarea>
+                             </div>
+                             
+                             <div class="form-group">
+                                 <label>Writer</label>
+                                 <input class="form-control" name="writer"  value= '<c:out value="${board.writer}"/>'>
+                             </div>
+                  		     <button class="btn btn-default" data-oper='modify'>Modify </button>
+                             <button class="btn btn-danger" data-oper='remove'>Remove</button>
+                             <button class="btn btn-info" data-oper='list'>List</button>
 	                    </form>  	
                         </div>
                         
@@ -66,19 +68,25 @@ $(document).ready(function() {
 		
 		console.log(operation);
 	
-		if(operation === 'list') {
-			self.location ="/board/list";
-		}else if(operation === 'remove') {
+		if(operation === 'remove') {
 			formObj.attr("action","/board/remove")
 			.attr("method", "post");
-			formObj.submit();
+			
+		}else if(operation === 'list') {
+			formObj.attr("action","/board/list").attr("method","get");
+			var pageNumTag = $("input[name='pageNum']").clone();
+			var amountTag = $("input[name='amount']").clone();
+			
+			formObj.empty();
+			formObj.append(pageNumTag);
+			formObj.append(amountTag);
 			
 		}else if(operation === 'modify') {
 			formObj.attr("action","/board/modify")
 			.attr("method", "post");
-			formObj.submit();
 		}
-	})
+		formObj.submit();
+	});
 
 });
 
