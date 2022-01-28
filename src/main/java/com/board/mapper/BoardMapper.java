@@ -1,6 +1,7 @@
 package com.board.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.board.domain.BoardVO;
 import com.board.domain.Criteria;
@@ -23,4 +24,7 @@ public interface BoardMapper {
 	List<BoardVO> getListWithPaging(Criteria cri);
 	
 	int getTotalCount(Criteria cri);
+	
+	List<BoardVO> searchTest(Map<String, Map<String, String>> map);
+	
 }

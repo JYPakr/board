@@ -12,6 +12,10 @@ public class Criteria {
 	private int pageNum;
 	private int amount;
 	
+	private String type; // t, tc, tcw, cw,
+	private String keyword;
+	
+	
 	public Criteria() {
 		this(1, 10);
 	}
@@ -20,6 +24,13 @@ public class Criteria {
 		super();
 		this.pageNum = pageNum;
 		this.amount = amount;
+	}
+	public String[] getTypeArr() {
+		
+		//System.out.println("--------------------------");
+		//System.out.println("getTypeArr................");
+		
+		return type == null? new String[] {}: type.split("");
 	}
 	
 }
