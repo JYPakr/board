@@ -14,16 +14,18 @@ import com.board.domain.Criteria;
 import com.board.domain.PageDTO;
 import com.board.service.BoardService;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping("/board/*")
 @Log4j
 public class BoardController {
 
-	private final BoardService service;
+	
+	private BoardService service;
 	
 //	@GetMapping("/list")
 //	public void list(Model model) {
