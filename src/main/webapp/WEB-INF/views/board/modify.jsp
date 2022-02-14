@@ -54,7 +54,7 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-<script>
+<script type="text/javascript">
 
 $(document).ready(function() {
 	
