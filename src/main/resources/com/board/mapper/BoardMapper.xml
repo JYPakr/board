@@ -5,8 +5,8 @@
 <mapper namespace="com.board.mapper.BoardMapper">
  	
 <sql id="criteria">
-	 <trim suffix="and" >
-		 <foreach collection="typeArr" item="type" separator="or" open="(" close=")">
+	 <trim prefix="(" suffix=") and" >
+		 <foreach collection="typeArr" item="type" separator="or" >
 			  <if test="type == 'T'.toString()">
 			  title like '%'||#{keyword}||'%'
 			  </if>
@@ -83,7 +83,7 @@
  
  where
  ]]>
-	 <trim suffix="and" >
+	<!--  <trim suffix="and" >
 		 <foreach collection="map" index="key" item="val"  separator="or" open="(" close=")">
 			  <if test="key == 'T'.toString()">
 			  title like #{val}
@@ -95,7 +95,7 @@
 			  writer like #{val}
 			  </if>
 		 </foreach>
-	 </trim>
+	 </trim> -->
 
   <![CDATA[
   rownum < 10
