@@ -109,7 +109,7 @@ public class BoardMapperTests {
 		log.info(pageDTO);
 	}
 	
-	@Test
+/*	@Test
 	public void testSearch() {
 		Map<String, String> map = new HashMap<>();
 		map.put("T", "TTT");
@@ -123,7 +123,7 @@ public class BoardMapperTests {
 		
 		log.info(list);
 		
-	}
+	} */
 }
 
 

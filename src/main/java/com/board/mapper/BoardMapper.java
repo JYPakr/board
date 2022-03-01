@@ -3,6 +3,8 @@ package com.board.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.board.domain.BoardVO;
 import com.board.domain.Criteria;
 
@@ -25,6 +27,8 @@ public interface BoardMapper {
 	
 	int getTotalCount(Criteria cri);
 	
-	List<BoardVO> searchTest(Map<String, Map<String, String>> map);
+	// List<BoardVO> searchTest(Map<String, Map<String, String>> map); 
+	
+	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
 	
 }
