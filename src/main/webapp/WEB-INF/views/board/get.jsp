@@ -3,6 +3,8 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 
 <%@include file="../includes/header.jsp" %>
             <div class="row">
@@ -48,8 +50,16 @@
                            	                   	      
                          		</form>
                       		     <button type="button" class="btn btn-default listBtn"><a href='/board/list'>List</a></button>
-                                 <button type="button" class="btn btn-default modBtn"><a href='/board/modify?bno=<c:out value="${board.bno}"/>'>Modify</a></button>
+                      		     <sec:authentication property="principal" var="pinfo"/>
+                      		     	
+                      		     	<sec:authorize access="isAuthenticated()">
+                      		     	
+                      		     	<c:if test="${pinfo.username eq board.writer}">
+                                	
+                                	<button type="button" class="btn btn-default modBtn"><a href='/board/modify?bno=<c:out value="${board.bno}"/>'>Modify</a></button>
 	                       		 
+	                       		 </c:if>
+	                       		 </sec:authorize>
 	                       		 
 	                       		 <div class='row'>
 	                       		 
@@ -59,7 +69,9 @@
 	                       		 <div class="panel panel-default">
 	                       		 	<div class="panel-heading">
 	                       		 		<i class="fa fa-comments fa-fw"></i> Reply
+	                       		 		<sec:authorize access="isAuthenticated()">
 	                       		 			<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New Reply</button>
+	                       		 		</sec:authorize>
 	                       		 	</div>
 	                       		 	<!-- /.panel-heading -->
 	                       		 	<div class="panel-body">
@@ -238,9 +250,21 @@
 	                       		 	var modalRemoveBtn = $('#modalRemoveBtn');
 	                       		 	var modalRegisterBtn = $('#modalRegisterBtn');
 	                       		 	
+	                       		 	var replyer = null;
+	                       		 	
+	                       		 	<sec:authorize access="isAuthenticated()">
+	                       		 	
+	                       		 	replyer ='<sec:authentication property="principal.username"/>';
+	                       		 	
+	                       		 	</sec:authorize>
+	                       		 	
+	                       		 	var csrfHeaderName ="${_csrf.headerName}";
+	                       		 	var csrfTokenValue="${_csrf.token}";
+	                       		 	
 	                       		 	$("#addReplyBtn").on("click", function(e){
 	                       		 		
 	                       		 		modal.find("input").val("");
+	                       		 		modal.find("input[name='replyer']").val(replyer);
 	                       		 		modalInputReplyDate.closest("div").hide();
 	                       		 		modal.find("button[id !='modalCloseBtn']").hide();
 	                       		 		
@@ -250,6 +274,10 @@
 	                       		 	
 	                       		 	});
 	                       		 	
+	                       		 	$(document).ajaxSend(function(e, xhr, options) {
+	                       		 		xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);	
+	                       		 	});
+
 	                       		 	modalRegisterBtn.on("click", function(e){
 	                       		 	
 	                       		 		var reply = {

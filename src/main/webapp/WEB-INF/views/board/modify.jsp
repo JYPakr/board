@@ -3,6 +3,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <%@include file="../includes/header.jsp" %>
             <div class="row">
@@ -20,7 +21,10 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                        <form>
+                        <form role="form" action="/board/modify" method="post">
+                        
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        
                        		 <input type='hidden' name='pageNum' value='${cri.pageNum }'>
                        		 <input type='hidden' name='amount' value='${cri.amount }'>
                     	 	 <div class="form-group">
@@ -41,8 +45,17 @@
                                  <label>Writer</label>
                                  <input class="form-control" name="writer"  value= '<c:out value="${board.writer}"/>'>
                              </div>
+                             
+                             <sec:authentication property="principal" var="pinfo"/>
+                             
+                             <sec:authorize access="isAuthenticated()">
+                             
+                             <c:if test="${pinfo.username eq board.writer}">
                   		     <button class="btn btn-default" data-oper='modify'>Modify </button>
                              <button class="btn btn-danger" data-oper='remove'>Remove</button>
+                       	 	 </c:if>
+                       	 	 </sec:authorize>
+                       	 	 
                              <button class="btn btn-info" data-oper='list'>List</button>
 	                    </form>  	
                         </div>
