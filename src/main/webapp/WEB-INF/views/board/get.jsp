@@ -7,18 +7,12 @@
 
 
 <%@include file="../includes/header.jsp" %>
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Board Read</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Board Read
+                            조회
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -81,10 +75,11 @@
 	                       		 			<li class="left clearfix" data-rno='12'>
 	                       		 			 <div>
 	                       		 			  <div class="header">
-	                       		 			   <strong class="primary-font">user00</strong>
-	                       		 			   <small class="pull=right text-muted">2018-01-01 13:13 </small>
+
 	                       		 			 </div>
-	                       		 			 <p>Good job!</p>
+	                       		 			 <sec:authorize access="isAnonymous()">
+	                       		 			 <p>댓글을 작성하려면 <a href='/customLogin'>로그인</a> 해주세요</p>
+	                       		 			 </sec:authorize>
 	                       		 			</div>
                        		 			</li>
                        		 			<!-- end reply -->
