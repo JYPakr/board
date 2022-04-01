@@ -9,27 +9,12 @@
 <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 <bean id="customUserDetailsService" class="com.board.security.CustomUserDetailsService"></bean>
 
-<!-- <bean id="customPasswordEncoder" class="org.zerock.security.CustomNoOpPasswordEncoder"></bean> -->
+
 
  <security:http>
  
- 	<security:intercept-url pattern="/sample/all" access="permitAll"/>
- 	 
- 	<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')"/>
- 	
- 	<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>
-	
-	
-	<!-- <security:access-denied-handler error-page="/accessError"/>  -->
-	
-	
+
 	<security:access-denied-handler ref="customAccessDenied" />
-	
-	
-	
-	<!-- <security:form-login />  -->
-	
-	<!-- <security:csrf disabled="true"/> -->
 	
 	<security:form-login login-page="/customLogin" />
 	
@@ -44,27 +29,7 @@
 	 
 	 <security:authentication-provider user-service-ref="customUserDetailsService">
 	 
-	 
-	 
-	 <!-- <security:jdbc-user-service data-source-ref="dataSource" /> --> 
-	 
-	 <!-- <security:jdbc-user-service data-source-ref="dataSource" 
-	 users-by-username-query="select userid username, userpw password, enabled 
-	 from tbl_member where userid = ? " 
-	 authorities-by-username-query="select userid username, auth authority
-	 from tbl_member_auth where userid = ? " />
-	  -->
 	 <security:password-encoder ref="bcryptPasswordEncoder"/>
-	 
-	<!--  <security:password-encoder ref="customPasswordEncoder"/> -->
-	 
-     <!-- <security:user-service>
-	 	
-	 		<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
-	 		
-	 		<security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER, ROLE_ADMIN"/>
-	 	
-	 	</security:user-service> -->
 	 
 	 </security:authentication-provider>
 	
