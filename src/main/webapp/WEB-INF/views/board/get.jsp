@@ -78,7 +78,7 @@
 
 	                       		 			 </div>
 	                       		 			 <sec:authorize access="isAnonymous()">
-	                       		 			 <p>댓글을 작성하려면 <a href='/customLogin'>로그인</a> 해주세요</p>
+	                       		 			 <p><a href='/customLogin'>댓글을 작성하려면 로그인 해주세요</p></a>
 	                       		 			 </sec:authorize>
 	                       		 			</div>
                        		 			</li>
